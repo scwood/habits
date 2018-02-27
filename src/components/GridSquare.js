@@ -1,10 +1,8 @@
 import React, {Component} from 'react'
 
-
 class GridSquare extends Component {
-
   state = {
-    clicked: false
+    clicked: false,
   }
 
   render() {
@@ -13,8 +11,8 @@ class GridSquare extends Component {
       <div
         style={{width: '12%', paddingBottom: '12%', margin: '1.14%'}}
         onClick={this.handleClick}
-        className={classes}>
-      </div>
+        className={classes}
+      />
     )
   }
 

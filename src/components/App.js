@@ -1,44 +1,53 @@
 import React, {Component} from 'react'
+import firebase from 'firebase'
 
+import AddNewHabitCard from './AddNewHabitCard'
 import Container from './Container'
+import HabitCard from './HabitCard'
 import Header from './Header'
 import WeekHeader from './WeekHeader'
-import HabitCard from './HabitCard'
-import AddNewHabitCard from './AddNewHabitCard'
+import LandingPage from './LandingPage'
 
-class App extends Component{
-
+export default class App extends Component {
   state = {
-    habits: [
-      {name: 'No phone in the morning'},
-      {name: 'Wake up early'},
-      {name: 'Wake up early'},
-      {name: 'Wake up early'},
-      {name: 'Wake up early'},
-      {name: 'Wake up early'},
-      {name: 'Wake up early'},
-      {name: 'Wake up early'},
-      {name: 'Wake up early'},
-      {name: 'Wake up early'},
-      {name: 'Wake up early'},
-      {name: 'Wake up early'},
-      {name: 'Wake up early'},
-      {name: 'Wake up early'},
-      {name: 'Wake up early'},
-      {name: 'Wake up early'},
-    ]
+    isAuthenticated: false,
+    isLoading: true,
+  }
+
+  componentDidMount() {
+    firebase
+      .auth()
+      .getRedirectResult()
+      .then((result) => {
+        console.log(result)
+      })
+  }
+
+  handleGoogleSignInClick = () => {
+    const provider = new firebase.auth.GoogleAuthProvider()
+    this.setState({isLoading: true})
+    firebase
+      .auth()
+      .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+      .then(() => firebase.auth().signInWithRedirect(provider))
   }
 
   render() {
-    return (
-      <Container>
-        <Header>Habits</Header>
-        <AddNewHabitCard />
-        <WeekHeader />
-        {this.state.habits.map(habit => <HabitCard habit={habit} />)}
-      </Container>
-    )
+    if (this.state.isLoading) {
+      return <div>Is loading</div>
+    }
+    if (this.state.isAuthenticated) {
+      return (
+        <Container>
+          <Header>Habits</Header>
+          <AddNewHabitCard />
+          <WeekHeader />
+          {this.state.habits.map((habit) => (
+            <HabitCard key={habit.id} habit={habit} />
+          ))}
+        </Container>
+      )
+    }
+    return <LandingPage onGoogleSignInClick={this.handleGoogleSignInClick} />
   }
 }
-
-export default App

@@ -1,7 +1,7 @@
 import React from 'react'
 import GridSquare from './GridSquare'
 
-function WeekGrid() {
+export default function WeekGrid() {
   return (
     <div className="flex">
       <GridSquare />
@@ -14,5 +14,3 @@ function WeekGrid() {
     </div>
   )
 }
-
-export default WeekGrid
