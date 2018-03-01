@@ -5,41 +5,50 @@ import AddNewHabitCard from './AddNewHabitCard'
 import Container from './Container'
 import HabitCard from './HabitCard'
 import Header from './Header'
-import WeekHeader from './WeekHeader'
 import LandingPage from './LandingPage'
+import WeekHeader from './WeekHeader'
 
 export default class App extends Component {
   state = {
-    isAuthenticated: false,
+    user: null,
     isLoading: true,
+    habits: [],
   }
 
   componentDidMount() {
-    firebase
-      .auth()
-      .getRedirectResult()
-      .then((result) => {
-        console.log(result)
-      })
+    firebase.initializeApp({
+      apiKey: 'AIzaSyBOgEKr1r2dRTs9nGWTu99Xwf8yAuX4mAk',
+      authDomain: 'habits-82cb3.firebaseapp.com',
+      databaseURL: 'https://habits-82cb3.firebaseio.com',
+      projectId: 'habits-82cb3',
+      storageBucket: 'habits-82cb3.appspot.com',
+      messagingSenderId: '179317366079',
+    })
+    firebase.auth().onAuthStateChanged((user) => {
+      this.setState({user, isLoading: false})
+    })
   }
 
   handleGoogleSignInClick = () => {
     const provider = new firebase.auth.GoogleAuthProvider()
-    this.setState({isLoading: true})
-    firebase
-      .auth()
-      .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-      .then(() => firebase.auth().signInWithRedirect(provider))
+    firebase.auth().signInWithRedirect(provider)
+  }
+
+  handleSignOutClick = () => {
+    firebase.auth().signOut()
   }
 
   render() {
     if (this.state.isLoading) {
-      return <div>Is loading</div>
+      return null
     }
-    if (this.state.isAuthenticated) {
+    if (this.state.user) {
       return (
         <Container>
-          <Header>Habits</Header>
+          <Header
+            name={this.state.user.displayName}
+            onSignOutClick={this.handleSignOutClick}
+          />
           <AddNewHabitCard />
           <WeekHeader />
           {this.state.habits.map((habit) => (
