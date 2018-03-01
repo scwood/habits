@@ -4,9 +4,11 @@ import ReactDOM from 'react-dom'
 import faPlus from '@fortawesome/fontawesome-free-solid/faPlus'
 import firebase from 'firebase'
 import fontawesome from '@fortawesome/fontawesome'
+import {Provider} from 'react-redux'
 
-import App from './components/App'
-import registerServiceWorker from './registerServiceWorker'
+import './index.css'
+import AppContainer from './components/AppContainer'
+import {configureStore} from './store'
 
 fontawesome.library.add(faPlus)
 
@@ -19,5 +21,11 @@ firebase.initializeApp({
   messagingSenderId: '179317366079',
 })
 
-ReactDOM.render(<App />, document.getElementById('root'))
-registerServiceWorker()
+const store = configureStore()
+
+ReactDOM.render(
+  <Provider store={store}>
+    <AppContainer />
+  </Provider>,
+  document.getElementById('root'),
+)

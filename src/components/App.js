@@ -1,53 +1,56 @@
 import React, {Component} from 'react'
-import firebase from 'firebase'
+import PropTypes from 'prop-types'
+import {BrowserRouter, Route, Redirect, Switch} from 'react-router-dom'
 
 import AddNewHabitCard from './AddNewHabitCard'
-import Container from './Container'
+import Layout from './Layout'
 import HabitCard from './HabitCard'
-import Header from './Header'
+import HeaderContainer from './HeaderContainer'
+import LandingPageContainer from './LandingPageContainer'
 import WeekHeader from './WeekHeader'
-import LandingPage from './LandingPage'
 
 export default class App extends Component {
-  state = {
-    isAuthenticated: false,
-    isLoading: true,
+  static propTypes = {
+    listenForAuthChanges: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired,
+    isFetchingUser: PropTypes.bool.isRequired,
   }
 
   componentDidMount() {
-    firebase
-      .auth()
-      .getRedirectResult()
-      .then((result) => {
-        console.log(result)
-      })
-  }
-
-  handleGoogleSignInClick = () => {
-    const provider = new firebase.auth.GoogleAuthProvider()
-    this.setState({isLoading: true})
-    firebase
-      .auth()
-      .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-      .then(() => firebase.auth().signInWithRedirect(provider))
+    this.props.listenForAuthChanges()
   }
 
   render() {
-    if (this.state.isLoading) {
-      return <div>Is loading</div>
+    if (this.props.isFetchingUser) {
+      return null
     }
-    if (this.state.isAuthenticated) {
+    if (this.props.isAuthenticated) {
       return (
-        <Container>
-          <Header>Habits</Header>
-          <AddNewHabitCard />
-          <WeekHeader />
-          {this.state.habits.map((habit) => (
-            <HabitCard key={habit.id} habit={habit} />
-          ))}
-        </Container>
+        <BrowserRouter>
+          <Layout>
+            <HeaderContainer />
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={() => (
+                  <div>
+                    <AddNewHabitCard />
+                    <WeekHeader />
+                    {[].map((habit) => (
+                      <HabitCard key={habit.id} habit={habit} />
+                    ))}
+                  </div>
+                )}
+              />
+              <Route path="/habits/new" />
+              <Route path="/habits/:id" render={() => 'hi'} />
+              <Redirect to="/" />
+            </Switch>
+          </Layout>
+        </BrowserRouter>
       )
     }
-    return <LandingPage onGoogleSignInClick={this.handleGoogleSignInClick} />
+    return <LandingPageContainer />
   }
 }
