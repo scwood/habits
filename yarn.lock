@@ -3296,11 +3296,7 @@ hoek@2.x.x:
   version "2.16.3"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-2.16.3.tgz#20bb7403d3cea398e91dc4710a8ff1b8274a25ed"
 
-<<<<<<< HEAD
 hoist-non-react-statics@^2.3.0, hoist-non-react-statics@^2.5.0:
-=======
-hoist-non-react-statics@^2.3.0:
->>>>>>> 4b42789bd7ac79b3a5b1f41cb810791ede655619
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.0.tgz#d2ca2dfc19c5a91c5a6615ce8e564ef0347e2a40"
 
@@ -3521,11 +3517,7 @@ interpret@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.1.0.tgz#7ed1b1410c6a0e0f78cf95d3b8440c63f78b8614"
 
-<<<<<<< HEAD
 invariant@^2.0.0, invariant@^2.2.0, invariant@^2.2.1, invariant@^2.2.2:
-=======
-invariant@^2.2.0, invariant@^2.2.1, invariant@^2.2.2:
->>>>>>> 4b42789bd7ac79b3a5b1f41cb810791ede655619
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.3.tgz#1a827dfde7dcbd7c323f0ca826be8fa7c5e9d688"
   dependencies:
@@ -5410,9 +5402,6 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-<<<<<<< HEAD
-prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.6.0, prop-types@^15.6.1:
-=======
 prop-types@^15.5.10, prop-types@^15.6.0:
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
@@ -5422,7 +5411,6 @@ prop-types@^15.5.10, prop-types@^15.6.0:
     object-assign "^4.1.1"
 
 prop-types@^15.5.4, prop-types@^15.6.1:
->>>>>>> 4b42789bd7ac79b3a5b1f41cb810791ede655619
   version "15.6.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.1.tgz#36644453564255ddda391191fb3a125cbdf654ca"
   dependencies:
@@ -5591,7 +5579,6 @@ react-error-overlay@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-4.0.0.tgz#d198408a85b4070937a98667f500c832f86bd5d4"
 
-<<<<<<< HEAD
 react-redux@^5.0.7:
   version "5.0.7"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-5.0.7.tgz#0dc1076d9afb4670f993ffaef44b8f8c1155a4c8"
@@ -5614,8 +5601,6 @@ react-router-dom@^4.2.2:
     react-router "^4.2.0"
     warning "^3.0.0"
 
-=======
->>>>>>> 4b42789bd7ac79b3a5b1f41cb810791ede655619
 react-router@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/react-router/-/react-router-4.2.0.tgz#61f7b3e3770daeb24062dae3eedef1b054155986"

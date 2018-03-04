@@ -1,3 +1,3 @@
-const habits = (state = {}, action) => {}
+// const habits = (state = {}, action) => {}
 
-export default habits
+// export default habits
