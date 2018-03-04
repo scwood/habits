@@ -1,26 +1,26 @@
 import firebase from 'firebase'
 
-export const SIGN_OUT = 'SIGN_OUT'
+const SIGN_OUT = 'SIGN_OUT'
 const SET_USER_INFO = 'SET_USER_INFO'
 
 const initialState = {
-  userId: null,
+  id: null,
   displayName: null,
   isFetching: true,
 }
 
-export default function user(state = initialState, action) {
+const user = (state = initialState, action) => {
   switch (action.type) {
     case SET_USER_INFO:
       return {
         isFetching: false,
-        userId: action.user.uid,
+        id: action.user.uid,
         displayName: action.user.displayName,
       }
     case SIGN_OUT:
       return {
         isFetching: false,
-        userId: null,
+        id: null,
         displayName: null,
       }
     default:
@@ -29,7 +29,7 @@ export default function user(state = initialState, action) {
 }
 
 export const isFetchingUser = (state) => state.user.isFetching
-export const isAuthenticated = (state) => state.user.userId !== null
+export const isAuthenticated = (state) => state.user.id !== null
 export const getUserDisplayName = (state) => state.user.displayName
 
 export const listenForAuthChanges = () => (dispatch) => {
@@ -42,15 +42,17 @@ export const listenForAuthChanges = () => (dispatch) => {
   })
 }
 
-export const signOut = () => () => {
-  firebase.auth().signOut()
-}
-
 export const signIn = () => () => {
   const provider = new firebase.auth.GoogleAuthProvider()
   firebase.auth().signInWithRedirect(provider)
 }
 
+export const signOut = () => () => {
+  firebase.auth().signOut()
+}
+
 const setUserInfo = (user) => {
   return {type: SET_USER_INFO, user}
 }
+
+export default user

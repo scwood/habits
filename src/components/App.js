@@ -8,6 +8,7 @@ import HabitCard from './HabitCard'
 import HeaderContainer from './HeaderContainer'
 import LandingPageContainer from './LandingPageContainer'
 import WeekHeader from './WeekHeader'
+import SingleHabit from './SingleHabit'
 
 export default class App extends Component {
   static propTypes = {
@@ -43,8 +44,8 @@ export default class App extends Component {
                   </div>
                 )}
               />
-              <Route path="/habits/new" />
-              <Route path="/habits/:id" render={() => 'hi'} />
+              <Route path="/habits/new" component={SingleHabit} />
+              <Route path="/habits/:id" component={SingleHabit} />
               <Redirect to="/" />
             </Switch>
           </Layout>

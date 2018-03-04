@@ -1,7 +1,19 @@
-import React, {Component} from 'react'
+import PropTypes from 'prop-types'
+import React from 'react'
 
-export default class SingleHabit extends Component {
-  render() {
-    return <div>hi</div>
-  }
+import BackHeader from './BackHeader'
+
+const SingleHabit = ({match}) => {
+  return (
+    <div>
+      <BackHeader />
+      {match.params.id}
+    </div>
+  )
 }
+
+SingleHabit.propTypes = {
+  habit: PropTypes.object,
+}
+
+export default SingleHabit
