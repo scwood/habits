@@ -17,3 +17,5 @@ deploy:
   provider: script
   script: aws s3 sync dist s3://scwood-habit-tracker --delete --acl public-read
   skip_cleanup: true
+  on:
+    - travis
