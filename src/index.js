@@ -15,12 +15,12 @@ fontawesome.library.add(faPlus)
 fontawesome.library.add(faLongArrowAltLeft)
 
 firebase.initializeApp({
-  apiKey: 'AIzaSyBOgEKr1r2dRTs9nGWTu99Xwf8yAuX4mAk',
-  authDomain: 'habits-82cb3.firebaseapp.com',
-  databaseURL: 'https://habits-82cb3.firebaseio.com',
-  projectId: 'habits-82cb3',
-  storageBucket: 'habits-82cb3.appspot.com',
-  messagingSenderId: '179317366079',
+  apiKey: 'AIzaSyC44pTo_9e6yFb8CNuURP5fqfXY7g6YN5E',
+  authDomain: 'habit-tracker-44ad4.firebaseapp.com',
+  databaseURL: 'https://habit-tracker-44ad4.firebaseio.com',
+  projectId: 'habit-tracker-44ad4',
+  storageBucket: '',
+  messagingSenderId: '551332714977',
 })
 
 const store = configureStore()
