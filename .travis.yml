@@ -17,5 +17,3 @@ deploy:
   provider: script
   script: aws s3 sync dist s3://scwood-tetris --delete --acl public-read
   skip_cleanup: true
-  on:
-    branch: master
