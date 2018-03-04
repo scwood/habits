@@ -1,7 +1,7 @@
 import React from 'react'
 import GridSquare from './GridSquare'
 
-function WeekGrid() {
+const WeekGrid = () => {
   return (
     <div className="flex">
       <GridSquare />

@@ -1,44 +1,57 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
+import {BrowserRouter, Route, Redirect, Switch} from 'react-router-dom'
 
-import Container from './Container'
-import Header from './Header'
-import WeekHeader from './WeekHeader'
-import HabitCard from './HabitCard'
 import AddNewHabitCard from './AddNewHabitCard'
+import Layout from './Layout'
+import HabitCard from './HabitCard'
+import HeaderContainer from './HeaderContainer'
+import LandingPageContainer from './LandingPageContainer'
+import WeekHeader from './WeekHeader'
+import SingleHabit from './SingleHabit'
 
-class App extends Component{
+export default class App extends Component {
+  static propTypes = {
+    listenForAuthChanges: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired,
+    isFetchingUser: PropTypes.bool.isRequired,
+  }
 
-  state = {
-    habits: [
-      {name: 'No phone in the morning'},
-      {name: 'Wake up early'},
-      {name: 'Wake up early'},
-      {name: 'Wake up early'},
-      {name: 'Wake up early'},
-      {name: 'Wake up early'},
-      {name: 'Wake up early'},
-      {name: 'Wake up early'},
-      {name: 'Wake up early'},
-      {name: 'Wake up early'},
-      {name: 'Wake up early'},
-      {name: 'Wake up early'},
-      {name: 'Wake up early'},
-      {name: 'Wake up early'},
-      {name: 'Wake up early'},
-      {name: 'Wake up early'},
-    ]
+  componentDidMount() {
+    this.props.listenForAuthChanges()
   }
 
   render() {
-    return (
-      <Container>
-        <Header>Habits</Header>
-        <AddNewHabitCard />
-        <WeekHeader />
-        {this.state.habits.map(habit => <HabitCard habit={habit} />)}
-      </Container>
-    )
+    if (this.props.isFetchingUser) {
+      return null
+    }
+    if (this.props.isAuthenticated) {
+      return (
+        <BrowserRouter>
+          <Layout>
+            <HeaderContainer />
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={() => (
+                  <div>
+                    <AddNewHabitCard />
+                    <WeekHeader />
+                    {[].map((habit) => (
+                      <HabitCard key={habit.id} habit={habit} />
+                    ))}
+                  </div>
+                )}
+              />
+              <Route path="/habits/new" component={SingleHabit} />
+              <Route path="/habits/:id" component={SingleHabit} />
+              <Redirect to="/" />
+            </Switch>
+          </Layout>
+        </BrowserRouter>
+      )
+    }
+    return <LandingPageContainer />
   }
 }
-
-export default App
