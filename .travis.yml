@@ -18,4 +18,4 @@ deploy:
   provider: script
   script: aws s3 sync build s3://scwood-habit-tracker --delete --acl public-read
   on:
-    branch:  travis
+    branch:  master
