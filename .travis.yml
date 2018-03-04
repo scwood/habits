@@ -8,7 +8,6 @@ script:
 - yarn lint
 before_deploy:
 - yarn build
-- pip install --user awscli
 deploy:
   skip_cleanup: true
   provider: firebase
@@ -16,4 +15,4 @@ deploy:
   token:
     secure: hbFLelBdPB8tku/exaM16mMbcfgtlSRPEskQCOJVcpW79aETH7jSB+yItuX0RUOUDyU7/ZQ5D+j4xvXSvda8dYZk+rlU0CAr5lv13Hn1Oyxa7DYatYJtWDTv9rQSFXYn916xZuXeCUOAcjIQOBgHm4w1lT8fgxRYvf7Qg1M824DeZxWPtv/RdqHP1HkjKTwKpYgVjag/7fPSdzKfK5XH8oz7dVN4nErOgii667YRL9UehAA4mtJZRqWgf40zfXH9udDIeopsn98Rv6Fb9FhoqYu98NebeqXp7vLo20Cu/lj0pF7yWlm5VeQIgAmY7qV7Dau2u1WCKqwvuKkj8xl+lNCRYJ3vmLdsErRcLJrO462ETsQEUl0d9MDSLd35MWBoakV4/3cL5WNig7l7AB3kHY2JRTZPuUKjxZDi5rYW1gzePj+T2VswPWlD+/YIdGzlK2dLZ8bv095LQPD2YTKthAq1elcXghyJsoe2LJL2u6ElHKc/i8jdv+h4/MNO+IjiZX9SSBKIdrNvnpikLmxTBDWp0sa6D+/3FYPnwQaDnaLRImjj0YixqDC475RVOUq6JWluZyEX6DSumE69UT0o70FjsfXI+4pcLole3lbSlPkfyAMgyITByaRz/FRXV9DrggO0dfAx565YQK256rDyKZAYTPkiXj4920/NdMvxHhw=
   on:
-    branch: 'firebase-deploys'
+    branch: master
