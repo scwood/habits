@@ -2,10 +2,6 @@ sudo: false
 language: node_js
 node_js:
 - '8'
-env:
-  global:
-  - AWS_ACCESS_KEY_ID=AKIAJMHXAMOFLZBN3GOA
-  - secure: gbFaYubi/nnm85tYEK1SrSp9mkgWGwilkqyDenpJEb7Lx7DzDI/ZVNc7afv7Q9Yg4EVMFoG2Eqgzpr/hcpBBql+AXenXDLmbJ2e4TWiBC5gNh4bzIzoeYkakL5c9RckIb5AqXB8zkhsi4MmwP3Gg2fU2tcwsPdAqJxTnFh0DAG/OEo/ip1BgNnThPs8I3X8J+Fi4FvDx1Qd3EEJ24TdUZiK18mvVT7lk5Yq36hpE7sSXdbAW439HtNV0jlMtIWJaZ6awId10FYCMxlwcirUuz9A216BXq2bkAZTw1lB0NPlqondbe+MmycQWftblx7xuly2XYSGs8sGqdj4pQ5ofd59b2U8ZbiQx1/L3oqQX3GhAvT2vMSdBRyoeBdnUm/cQdNHjYI6IhBRaGsmYlEtP6JJNrSOSNSGmHXJ6AchGQ+nTyZC5S19/otn3dx0ZU5+zanOxyb9RANF8XpZcOVjDqWFFjoejTT5KfXHmYjWfuSBUKMZ2lxYQmF9TeK33FW30yAHWlao33mCDIaHS6vMAEts+TjcxdrYh8Eg/mL9VhyNns/tzt4oztvItxmbW2pwQbWJ2VACcGI96qdo/qLjjBLJ1OYq0ySTlY30WiSQFOhGDab3O4mPbzUdbJiPv7006KPxiDJQ264V1jwglURmRFTgiINyT9ahRM6N80mPg0mk=
 install:
 - yarn
 script:
@@ -14,8 +10,10 @@ before_deploy:
 - yarn build
 - pip install --user awscli
 deploy:
-  skip_cleanup: true
-  provider: script
-  script: aws s3 sync build s3://scwood-habit-tracker --delete --acl public-read
   on:
-    branch:  master
+    branch: 'firebase-deploys'
+  skip_cleanup: true
+  provider: firebase
+  project: 'habit-tracker'
+  token:
+    secure: hbFLelBdPB8tku/exaM16mMbcfgtlSRPEskQCOJVcpW79aETH7jSB+yItuX0RUOUDyU7/ZQ5D+j4xvXSvda8dYZk+rlU0CAr5lv13Hn1Oyxa7DYatYJtWDTv9rQSFXYn916xZuXeCUOAcjIQOBgHm4w1lT8fgxRYvf7Qg1M824DeZxWPtv/RdqHP1HkjKTwKpYgVjag/7fPSdzKfK5XH8oz7dVN4nErOgii667YRL9UehAA4mtJZRqWgf40zfXH9udDIeopsn98Rv6Fb9FhoqYu98NebeqXp7vLo20Cu/lj0pF7yWlm5VeQIgAmY7qV7Dau2u1WCKqwvuKkj8xl+lNCRYJ3vmLdsErRcLJrO462ETsQEUl0d9MDSLd35MWBoakV4/3cL5WNig7l7AB3kHY2JRTZPuUKjxZDi5rYW1gzePj+T2VswPWlD+/YIdGzlK2dLZ8bv095LQPD2YTKthAq1elcXghyJsoe2LJL2u6ElHKc/i8jdv+h4/MNO+IjiZX9SSBKIdrNvnpikLmxTBDWp0sa6D+/3FYPnwQaDnaLRImjj0YixqDC475RVOUq6JWluZyEX6DSumE69UT0o70FjsfXI+4pcLole3lbSlPkfyAMgyITByaRz/FRXV9DrggO0dfAx565YQK256rDyKZAYTPkiXj4920/NdMvxHhw=
