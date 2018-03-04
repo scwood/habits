@@ -1,21 +1,19 @@
 sudo: false
 language: node_js
 node_js:
-  - '8'
+- '8'
 env:
   global:
-    - AWS_ACCESS_KEY_ID=AKIAIXOFIDNR7BVDU3BA
-    - secure: nPw2Tmohd6hyIjlGwPHy89QujQJVzPOgyYkP9Ha+yKdmOiOMYTVH73MEreSey0VlynBXHoUnHl4vksjce7B3D+YcdofnMbVu6Rv/oVCbiANJ/OVrADh0uq5q4ue08T3D9re5mjJ5WaeNEzei+eMubt3fnQse0snjVK9gZyh2rmq8d7enjsWtU6Rt4BK2FLuPvv/4hea1T+yRde31Lsjwwfcb59vpKx/VNxruOjteTraUjAPIiEGYDx2CeUsaP7e8pXUiDW7ZA35JZVseYvTVpvzF+22mjgST3UHAuRll5/akduQfnV/aRMkEx6MRAl/PzYFs6xtYmsWyBzZY7J/iAzR6NfU53G1r/J0jGTEKRwk99LxMcgThTe3cmu1Qt/+MER2AwNqoi4Cbv4sxxyoMcrijti2rNKFl53IX6sKHbOsZS718LwgATU+GSmnxjXWRlnLWDUviHZJljyJAjqVGZw/9ozt5v/dccziF8nZvDCLBQ2wF0rk5OE0y7iDo4FqHZM8timdxliwhqXi6yee/Xqn+JZLdSkHIRElwnFezmF3bForahV0Krcx/gINaESY37VpnePzTsMbZ1NoSlYP/MptadtAcxYyR0rbueecxvyQxc3SjNqZ9mVvQWyTSWB+2HdtTIAub10vw5DHCkk/goBMrgh6/GpWSKpI+gX7ZGcM=
+  - AWS_ACCESS_KEY_ID=AKIAJMHXAMOFLZBN3GOA
+  - secure: gbFaYubi/nnm85tYEK1SrSp9mkgWGwilkqyDenpJEb7Lx7DzDI/ZVNc7afv7Q9Yg4EVMFoG2Eqgzpr/hcpBBql+AXenXDLmbJ2e4TWiBC5gNh4bzIzoeYkakL5c9RckIb5AqXB8zkhsi4MmwP3Gg2fU2tcwsPdAqJxTnFh0DAG/OEo/ip1BgNnThPs8I3X8J+Fi4FvDx1Qd3EEJ24TdUZiK18mvVT7lk5Yq36hpE7sSXdbAW439HtNV0jlMtIWJaZ6awId10FYCMxlwcirUuz9A216BXq2bkAZTw1lB0NPlqondbe+MmycQWftblx7xuly2XYSGs8sGqdj4pQ5ofd59b2U8ZbiQx1/L3oqQX3GhAvT2vMSdBRyoeBdnUm/cQdNHjYI6IhBRaGsmYlEtP6JJNrSOSNSGmHXJ6AchGQ+nTyZC5S19/otn3dx0ZU5+zanOxyb9RANF8XpZcOVjDqWFFjoejTT5KfXHmYjWfuSBUKMZ2lxYQmF9TeK33FW30yAHWlao33mCDIaHS6vMAEts+TjcxdrYh8Eg/mL9VhyNns/tzt4oztvItxmbW2pwQbWJ2VACcGI96qdo/qLjjBLJ1OYq0ySTlY30WiSQFOhGDab3O4mPbzUdbJiPv7006KPxiDJQ264V1jwglURmRFTgiINyT9ahRM6N80mPg0mk=
 install:
-  - yarn
+- yarn
 script:
-  - yarn lint
+- yarn lint
 before_deploy:
-  - yarn build
-  - pip install --user awscli
+- yarn build
+- pip install --user awscli
 deploy:
   provider: script
   script: aws s3 sync dist s3://scwood-tetris --delete --acl public-read
   skip_cleanup: true
-  on:
-    travis
