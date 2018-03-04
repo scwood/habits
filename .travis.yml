@@ -13,10 +13,9 @@ script:
 before_deploy:
 - yarn build
 - pip install --user awscli
-- ls -l
 deploy:
   skip_cleanup: true
   provider: script
-  script: ls -l && aws s3 sync ./dist s3://scwood-habit-tracker --delete --acl public-read
+  script: aws s3 sync build s3://scwood-habit-tracker --delete --acl public-read
   on:
     branch:  travis
