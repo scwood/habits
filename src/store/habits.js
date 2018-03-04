@@ -1,3 +1,9 @@
-// const habits = (state = {}, action) => {}
+import firebase from 'firebase'
 
-// export default habits
+const habits = (state = {}, action) => {}
+
+export const fetchHabits = () => (dispatch) => {
+  console.log('hi')
+}
+
+export default habits
