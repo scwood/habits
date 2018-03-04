@@ -13,7 +13,7 @@ const SingleHabit = ({match}) => {
 }
 
 SingleHabit.propTypes = {
-  habit: PropTypes.object,
+  match: PropTypes.object.isRequired,
 }
 
 export default SingleHabit
