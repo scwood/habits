@@ -16,7 +16,8 @@ class GridSquare extends Component {
     )
   }
 
-  handleClick = () => {
+  handleClick = (event) => {
+    event.stopPropagation()
     this.setState({clicked: !this.state.clicked})
   }
 }

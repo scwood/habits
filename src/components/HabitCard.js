@@ -1,13 +1,15 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import {withRouter} from 'react-router'
 
 import Card from './Card'
 import WeekGrid from './WeekGrid'
 
-const HabitCard = ({habit}) => {
+const HabitCard = ({habit, history}) => {
+  const {id, description} = habit
   return (
-    <Card>
-      <div className="pa2">{habit.name}</div>
+    <Card className="pointer" onClick={() => history.push(`/habits/${id}`)}>
+      <div className="pa2">{description}</div>
       <WeekGrid />
     </Card>
   )
@@ -15,6 +17,7 @@ const HabitCard = ({habit}) => {
 
 HabitCard.propTypes = {
   habit: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 }
 
-export default HabitCard
+export default withRouter(HabitCard)

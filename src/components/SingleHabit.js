@@ -1,20 +1,49 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, {Component} from 'react'
 
+import Button from './Button'
 import BackHeader from './BackHeader'
 import TextInput from './TextInput'
 
-const SingleHabit = ({match}) => {
-  return (
-    <div>
-      <BackHeader />
-      <TextInput />
-    </div>
-  )
-}
+export default class SingleHabit extends Component {
+  static propTypes = {
+    match: PropTypes.object.isRequired,
+    habit: PropTypes.object,
+    handleSubmit: PropTypes.func.isRequired,
+    handleDelete: PropTypes.func,
+  }
 
-SingleHabit.propTypes = {
-  match: PropTypes.object.isRequired,
-}
+  state = {
+    description: this.props.habit ? this.props.habit.description : '',
+  }
 
-export default SingleHabit
+  componentWillReceiveProps(nextProps) {
+    const {habit} = nextProps
+    if (habit && habit.description !== this.state.description) {
+      this.setState({description: habit.description})
+    }
+  }
+
+  render() {
+    const habitId = this.props.match.params.id
+    return (
+      <div>
+        <BackHeader />
+        <TextInput
+          label="Description"
+          value={this.state.description}
+          onChange={(e) => this.setState({description: e.target.value})}
+        />
+        <Button
+          success
+          onClick={() => this.props.handleSubmit(habitId, this.state)}
+        >
+          Submit
+        </Button>
+        <Button danger onClick={() => this.props.handleDelete(habitId)}>
+          Delete
+        </Button>
+      </div>
+    )
+  }
+}

@@ -2,13 +2,11 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {BrowserRouter, Route, Redirect, Switch} from 'react-router-dom'
 
-import AddNewHabitCard from './AddNewHabitCard'
 import Layout from './Layout'
-import HabitCard from './HabitCard'
 import HeaderContainer from './HeaderContainer'
 import LandingPageContainer from './LandingPageContainer'
-import WeekHeader from './WeekHeader'
-import SingleHabit from './SingleHabit'
+import SingleHabitContainer from './SingleHabitContainer'
+import AllHabitsContainer from './AllHabitsContainer'
 
 export default class App extends Component {
   static propTypes = {
@@ -31,21 +29,17 @@ export default class App extends Component {
           <Layout>
             <HeaderContainer />
             <Switch>
+              <Route exact path="/" component={AllHabitsContainer} />
               <Route
                 exact
-                path="/"
-                render={() => (
-                  <div>
-                    <AddNewHabitCard />
-                    <WeekHeader />
-                    {[].map((habit) => (
-                      <HabitCard key={habit.id} habit={habit} />
-                    ))}
-                  </div>
-                )}
+                path="/habits/new"
+                component={SingleHabitContainer}
               />
-              <Route path="/habits/new" component={SingleHabit} />
-              <Route path="/habits/:id" component={SingleHabit} />
+              <Route
+                exact
+                path="/habits/:id"
+                component={SingleHabitContainer}
+              />
               <Redirect to="/" />
             </Switch>
           </Layout>
