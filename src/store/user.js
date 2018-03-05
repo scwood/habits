@@ -1,5 +1,7 @@
 import firebase from 'firebase'
 
+import {fetchHabits} from './habits'
+
 const SIGN_OUT = 'SIGN_OUT'
 const SET_USER_INFO = 'SET_USER_INFO'
 
@@ -31,6 +33,7 @@ const user = (state = initialState, action) => {
 export const isFetchingUser = (state) => state.user.isFetching
 export const isAuthenticated = (state) => state.user.id !== null
 export const getUserDisplayName = (state) => state.user.displayName
+export const getUserId = (state) => state.user.id
 
 export const listenForAuthChanges = () => (dispatch) => {
   firebase.auth().onAuthStateChanged((user) => {
@@ -38,6 +41,7 @@ export const listenForAuthChanges = () => (dispatch) => {
       dispatch({type: SIGN_OUT})
     } else {
       dispatch(setUserInfo(user))
+      dispatch(fetchHabits())
     }
   })
 }

@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 import faPlus from '@fortawesome/fontawesome-free-solid/faPlus'
 import faLongArrowAltLeft from '@fortawesome/fontawesome-free-solid/faLongArrowAltLeft'
 import firebase from 'firebase'
+import 'firebase/firestore'
 import fontawesome from '@fortawesome/fontawesome'
 import {Provider} from 'react-redux'
 
@@ -27,7 +28,7 @@ const store = configureStore()
 
 ReactDOM.render(
   <Provider store={store}>
-    <AppContainer />
+    <AppContainer stuff="asfd" />
   </Provider>,
   document.getElementById('root'),
 )
