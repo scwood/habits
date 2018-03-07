@@ -9,8 +9,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = () => {
-  return {}
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(AllHabits)
+export default connect(mapStateToProps)(AllHabits)

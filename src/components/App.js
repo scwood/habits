@@ -5,7 +5,7 @@ import {BrowserRouter, Route, Redirect, Switch} from 'react-router-dom'
 import Layout from './Layout'
 import HeaderContainer from './HeaderContainer'
 import LandingPageContainer from './LandingPageContainer'
-import SingleHabitContainer from './SingleHabitContainer'
+import HabitFormContainer from './HabitFormContainer'
 import AllHabitsContainer from './AllHabitsContainer'
 
 export default class App extends Component {
@@ -30,16 +30,8 @@ export default class App extends Component {
             <HeaderContainer />
             <Switch>
               <Route exact path="/" component={AllHabitsContainer} />
-              <Route
-                exact
-                path="/habits/new"
-                component={SingleHabitContainer}
-              />
-              <Route
-                exact
-                path="/habits/:id"
-                component={SingleHabitContainer}
-              />
+              <Route exact path="/habits/new" component={HabitFormContainer} />
+              <Route exact path="/habits/:id" component={HabitFormContainer} />
               <Redirect to="/" />
             </Switch>
           </Layout>

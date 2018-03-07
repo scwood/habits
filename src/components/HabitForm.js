@@ -5,7 +5,7 @@ import Button from './Button'
 import BackHeader from './BackHeader'
 import TextInput from './TextInput'
 
-export default class SingleHabit extends Component {
+export default class HabitForm extends Component {
   static propTypes = {
     match: PropTypes.object.isRequired,
     habit: PropTypes.object,
@@ -40,9 +40,11 @@ export default class SingleHabit extends Component {
         >
           Submit
         </Button>
-        <Button danger onClick={() => this.props.handleDelete(habitId)}>
-          Delete
-        </Button>
+        {habitId && (
+          <Button danger onClick={() => this.props.handleDelete(habitId)}>
+            Delete
+          </Button>
+        )}
       </div>
     )
   }

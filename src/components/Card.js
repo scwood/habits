@@ -3,7 +3,7 @@ import React from 'react'
 import classNames from 'classnames'
 
 const Card = ({children, className, onClick}) => {
-  const classes = classNames('br3 ba b--black-10 pa2-ns pa1 mb3', className)
+  const classes = classNames('br2 ba b--black-10 pa2-ns pa1 mb3', className)
   return (
     <div className={classes} onClick={onClick}>
       {children}
