@@ -1,8 +1,12 @@
 import {connect} from 'react-redux'
-import {withRouter} from 'react-router'
 
 import HabitForm from './HabitForm'
-import {createHabit, getHabitById, deleteHabit} from '../store/habits'
+import {
+  createHabit,
+  updateHabit,
+  getHabitById,
+  deleteHabit,
+} from '../store/habits'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -13,7 +17,11 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, {history}) => {
   return {
     handleSubmit: (id, habit) => {
-      dispatch(createHabit(habit))
+      if (id) {
+        dispatch(updateHabit(habit))
+      } else {
+        dispatch(createHabit(habit))
+      }
       history.push('/')
     },
     handleDelete: (id) => {
@@ -23,6 +31,4 @@ const mapDispatchToProps = (dispatch, {history}) => {
   }
 }
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(HabitForm),
-)
+export default connect(mapStateToProps, mapDispatchToProps)(HabitForm)

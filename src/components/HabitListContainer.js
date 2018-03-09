@@ -1,6 +1,6 @@
 import {connect} from 'react-redux'
 
-import AllHabits from './AllHabits'
+import HabitList from './HabitList'
 import {getHabits} from '../store/habits'
 
 const mapStateToProps = (state) => {
@@ -9,4 +9,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(AllHabits)
+export default connect(mapStateToProps)(HabitList)

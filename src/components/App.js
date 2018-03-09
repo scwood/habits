@@ -6,7 +6,7 @@ import Layout from './Layout'
 import HeaderContainer from './HeaderContainer'
 import LandingPageContainer from './LandingPageContainer'
 import HabitFormContainer from './HabitFormContainer'
-import AllHabitsContainer from './AllHabitsContainer'
+import HabitListContainer from './HabitListContainer'
 
 export default class App extends Component {
   static propTypes = {
@@ -29,7 +29,7 @@ export default class App extends Component {
           <Layout>
             <HeaderContainer />
             <Switch>
-              <Route exact path="/" component={AllHabitsContainer} />
+              <Route exact path="/" component={HabitListContainer} />
               <Route exact path="/habits/new" component={HabitFormContainer} />
               <Route exact path="/habits/:id" component={HabitFormContainer} />
               <Redirect to="/" />

@@ -3,25 +3,22 @@ import {firestore} from 'firebase'
 import {getUserId} from './user'
 
 const SET_HABITS = 'SET_HABITS'
-const TOGGLE_DAY = 'TOGGLE_DAY'
+const UPDATE_HABIT = 'UPDATE_HABIT'
 
 const habits = (state = [], action) => {
   switch (action.type) {
     case SET_HABITS:
       return action.habits
-    case TOGGLE_DAY:
+    case UPDATE_HABIT:
       return state.map((habit) => {
         if (habit.id === action.id) {
-          const result = {...habit, daysComplete: {...habit.daysComplete}}
-          if (habit.daysComplete[action.date]) {
-            delete result.daysComplete[action.date]
-          } else {
-            result.daysComplete[action.date] = true
+          return {
+            id: action.id,
+            ...action.habit,
+            daysComplete: {...action.habit.daysComplete},
           }
-          return result
-        } else {
-          return habit
         }
+        return habit
       })
     default:
       return state
@@ -63,6 +60,17 @@ export const createHabit = (habit) => (dispatch, getState) => {
     .then(dispatch(fetchHabits()))
 }
 
+export const updateHabit = (id, habit) => (dispatch, getState) => {
+  const userId = getUserId(getState())
+  dispatch({type: UPDATE_HABIT, id, habit})
+  firestore()
+    .collection('users')
+    .doc(userId)
+    .collection('habits')
+    .doc(habit.id)
+    .set(habit)
+}
+
 export const deleteHabit = (id) => (dispatch, getState) => {
   const userId = getUserId(getState())
   firestore()
@@ -74,8 +82,14 @@ export const deleteHabit = (id) => (dispatch, getState) => {
     .then(dispatch(fetchHabits()))
 }
 
-export const toggleDay = (id, date) => (dispatch) => {
-  dispatch({type: TOGGLE_DAY, id, date})
+export const toggleDay = (id, date) => (dispatch, getState) => {
+  const habit = getHabitById(getState(), id)
+  if (habit.daysComplete[date]) {
+    delete habit.daysComplete[date]
+  } else {
+    habit.daysComplete[date] = true
+  }
+  dispatch(updateHabit(id, habit))
 }
 
 export default habits

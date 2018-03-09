@@ -5,18 +5,22 @@ import AddNewHabitCard from './AddNewHabitCard'
 import HabitCard from './HabitCard'
 import WeekHeader from './WeekHeader'
 
-const AllHabits = ({habits}) => {
+const HabitList = ({habits}) => {
   return (
     <div>
       <AddNewHabitCard />
       <WeekHeader />
-      {habits.map((habit) => <HabitCard key={habit.id} habit={habit} />)}
+      {habits.length > 0 ? (
+        habits.map((habit) => <HabitCard key={habit.id} habit={habit} />)
+      ) : (
+        <div className="f6 tc black-50">You have no habits. Create one!</div>
+      )}
     </div>
   )
 }
 
-AllHabits.propTypes = {
+HabitList.propTypes = {
   habits: PropTypes.array.isRequired,
 }
 
-export default AllHabits
+export default HabitList

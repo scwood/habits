@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
+import {withRouter} from 'react-router'
 
 import Button from './Button'
 import BackHeader from './BackHeader'
 import TextInput from './TextInput'
 
-export default class HabitForm extends Component {
+class HabitForm extends Component {
   static propTypes = {
     match: PropTypes.object.isRequired,
     habit: PropTypes.object,
@@ -15,12 +16,13 @@ export default class HabitForm extends Component {
 
   state = {
     description: this.props.habit ? this.props.habit.description : '',
+    daysComplete: {},
   }
 
   componentWillReceiveProps(nextProps) {
     const {habit} = nextProps
-    if (habit && habit.description !== this.state.description) {
-      this.setState({description: habit.description})
+    if (habit) {
+      this.setState({...habit})
     }
   }
 
@@ -49,3 +51,5 @@ export default class HabitForm extends Component {
     )
   }
 }
+
+export default withRouter(HabitForm)
