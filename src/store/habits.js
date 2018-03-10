@@ -3,12 +3,16 @@ import {firestore} from 'firebase'
 import {getUserId} from './user'
 
 const SET_HABITS = 'SET_HABITS'
+const CREATE_HABIT = 'CREATE_HABIT'
 const UPDATE_HABIT = 'UPDATE_HABIT'
+const DELETE_HABIT = 'DELETE_HABIT'
 
 const habits = (state = [], action) => {
   switch (action.type) {
     case SET_HABITS:
       return action.habits
+    case CREATE_HABIT:
+      return [...state, action.habit]
     case UPDATE_HABIT:
       return state.map((habit) => {
         if (habit.id === action.id) {
@@ -20,6 +24,8 @@ const habits = (state = [], action) => {
         }
         return habit
       })
+    case DELETE_HABIT:
+      return state.filter((habit) => habit.id !== action.id)
     default:
       return state
   }
@@ -51,18 +57,25 @@ export const fetchHabits = () => (dispatch, getState) => {
 }
 
 export const createHabit = (habit) => (dispatch, getState) => {
+  const newHabit = {
+    createdAt: new Date(),
+    daysComplete: {},
+    ...habit,
+  }
   const userId = getUserId(getState())
-  firestore()
+  const newHabitRef = firestore()
     .collection('users')
     .doc(userId)
     .collection('habits')
-    .add(habit)
-    .then(dispatch(fetchHabits()))
+    .doc()
+  newHabit.id = newHabitRef.id
+  dispatch({type: CREATE_HABIT, habit: newHabit})
+  newHabitRef.set(newHabit)
 }
 
 export const updateHabit = (id, habit) => (dispatch, getState) => {
-  const userId = getUserId(getState())
   dispatch({type: UPDATE_HABIT, id, habit})
+  const userId = getUserId(getState())
   firestore()
     .collection('users')
     .doc(userId)
@@ -72,6 +85,7 @@ export const updateHabit = (id, habit) => (dispatch, getState) => {
 }
 
 export const deleteHabit = (id) => (dispatch, getState) => {
+  dispatch({type: DELETE_HABIT, id})
   const userId = getUserId(getState())
   firestore()
     .collection('users')

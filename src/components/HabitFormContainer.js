@@ -18,7 +18,7 @@ const mapDispatchToProps = (dispatch, {history}) => {
   return {
     handleSubmit: (id, habit) => {
       if (id) {
-        dispatch(updateHabit(habit))
+        dispatch(updateHabit(id, habit))
       } else {
         dispatch(createHabit(habit))
       }

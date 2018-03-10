@@ -15,15 +15,13 @@ class HabitForm extends Component {
   }
 
   state = {
-    description: this.props.habit ? this.props.habit.description : '',
-    daysComplete: {},
+    description: '',
+    ...this.props.habit,
   }
 
   componentWillReceiveProps(nextProps) {
     const {habit} = nextProps
-    if (habit) {
-      this.setState({...habit})
-    }
+    this.setState({...habit})
   }
 
   render() {
