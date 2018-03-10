@@ -5,7 +5,8 @@ const WeekHeader = () => {
   return (
     <div
       className="sticky flex bb bt b--black-10 mb3 ph2 bg-white"
-      style={{top: -1}}>
+      style={{top: -1}}
+    >
       {days.map((day) => (
         <div key={day} className="tc f6 fw6 w-100 mv2">
           {day}

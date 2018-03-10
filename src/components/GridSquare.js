@@ -1,24 +1,21 @@
-import React, {Component} from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 
-class GridSquare extends Component {
-  state = {
-    clicked: false,
-  }
-
-  render() {
-    const classes = 'ma1 ' + (this.state.clicked ? 'bg-green' : 'bg-light-gray')
-    return (
-      <div
-        style={{width: '12%', paddingBottom: '12%', margin: '1.14%'}}
-        onClick={this.handleClick}
-        className={classes}
-      />
-    )
-  }
-
-  handleClick = () => {
-    this.setState({clicked: !this.state.clicked})
-  }
+const GridSquare = ({green, onClick}) => {
+  return (
+    <div
+      style={{width: '12%', paddingBottom: '12%', margin: '1.15%'}}
+      onClick={onClick}
+      className={green ? 'bg-green' : 'bg-light-gray'}
+    />
+  )
 }
+
+GridSquare.propTypes = {
+  green: PropTypes.bool,
+  onClick: PropTypes.func,
+}
+
+GridSquare.propTypes = {}
 
 export default GridSquare
