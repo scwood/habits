@@ -1,21 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const GridSquare = ({green, onClick}) => {
-  return (
-    <div
-      style={{width: '12%', paddingBottom: '12%', margin: '1.15%'}}
-      onClick={onClick}
-      className={green ? 'bg-green' : 'bg-light-gray'}
-    />
-  )
+const GridSquare = ({className, style, onClick}) => {
+  return <div style={style} onClick={onClick} className={className} />
 }
 
 GridSquare.propTypes = {
-  green: PropTypes.bool,
+  style: PropTypes.object,
+  className: PropTypes.string,
   onClick: PropTypes.func,
 }
-
-GridSquare.propTypes = {}
 
 export default GridSquare

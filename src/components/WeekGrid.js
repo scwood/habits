@@ -4,11 +4,12 @@ import format from 'date-fns/format'
 import addDays from 'date-fns/add_days'
 import startOfWeek from 'date-fns/start_of_week'
 
+import GridRow from './GridRow'
 import GridSquare from './GridSquare'
 
 const WeekGrid = ({onGridClick, habit}) => {
-  // get date at start of the week
-  const sunday = startOfWeek(new Date())
+  const today = new Date()
+  const sunday = startOfWeek(today)
   const gridSquares = []
   for (let i = 0; i < 7; i++) {
     const date = addDays(sunday, i)
@@ -16,7 +17,9 @@ const WeekGrid = ({onGridClick, habit}) => {
     gridSquares.push(
       <GridSquare
         key={i}
-        green={habit.daysComplete[formattedDate]}
+        className={
+          habit.daysComplete[formattedDate] ? 'bg-green' : 'bg-light-gray'
+        }
         onClick={(event) => {
           event.stopPropagation()
           onGridClick(habit.id, formattedDate)
@@ -24,7 +27,7 @@ const WeekGrid = ({onGridClick, habit}) => {
       />,
     )
   }
-  return <div className="flex">{gridSquares}</div>
+  return <GridRow>{gridSquares}</GridRow>
 }
 
 WeekGrid.propTypes = {
