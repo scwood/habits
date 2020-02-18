@@ -1,53 +1,44 @@
 import PropTypes from 'prop-types';
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import {withRouter} from 'react-router';
 
 import Button from './Button';
 import BackHeader from './BackHeader';
 import TextInput from './TextInput';
 
-class HabitForm extends Component {
-  static propTypes = {
-    match: PropTypes.object.isRequired,
-    habit: PropTypes.object,
-    handleSubmit: PropTypes.func.isRequired,
-    handleDelete: PropTypes.func,
-  };
+const propTypes = {
+  match: PropTypes.object.isRequired,
+  habit: PropTypes.object,
+  handleSubmit: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func,
+};
 
-  state = {
+const HabitForm = withRouter((props) => {
+  const habitId = props.match.params.id;
+  const [habit, setHabit] = useState({
     description: '',
-    ...this.props.habit,
-  };
-
-  componentWillReceiveProps(nextProps) {
-    const {habit} = nextProps;
-    this.setState({...habit});
-  }
-
-  render() {
-    const habitId = this.props.match.params.id;
-    return (
-      <div>
-        <BackHeader />
-        <TextInput
-          label="Description"
-          value={this.state.description}
-          onChange={(e) => this.setState({description: e.target.value})}
-        />
-        <Button
-          success
-          onClick={() => this.props.handleSubmit(habitId, this.state)}
-        >
-          Submit
+    ...props.habit,
+  });
+  return (
+    <div>
+      <BackHeader />
+      <TextInput
+        label="Description"
+        value={habit.description}
+        onChange={(e) => setHabit({...habit, description: e.target.value})}
+      />
+      <Button success onClick={() => props.handleSubmit(habitId, habit)}>
+        Submit
+      </Button>
+      {habitId && (
+        <Button danger onClick={() => props.handleDelete(habitId)}>
+          Delete
         </Button>
-        {habitId && (
-          <Button danger onClick={() => this.props.handleDelete(habitId)}>
-            Delete
-          </Button>
-        )}
-      </div>
-    );
-  }
-}
+      )}
+    </div>
+  );
+});
 
-export default withRouter(HabitForm);
+HabitForm.propTypes = propTypes;
+
+export default HabitForm;
