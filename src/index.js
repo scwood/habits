@@ -1,12 +1,31 @@
+import 'tachyons/css/tachyons.min.css';
+import * as serviceWorker from './serviceWorker';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import firebase from 'firebase';
+import 'firebase/firestore';
+import {Provider} from 'react-redux';
+
 import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import AppContainer from './components/AppContainer';
+import {configureStore} from './store';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+firebase.initializeApp({
+  apiKey: 'AIzaSyC44pTo_9e6yFb8CNuURP5fqfXY7g6YN5E',
+  authDomain: 'habit-tracker-44ad4.firebaseapp.com',
+  databaseURL: 'https://habit-tracker-44ad4.firebaseio.com',
+  projectId: 'habit-tracker-44ad4',
+  storageBucket: '',
+  messagingSenderId: '551332714977',
+});
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+const store = configureStore();
+
+ReactDOM.render(
+  <Provider store={store}>
+    <AppContainer />
+  </Provider>,
+  document.getElementById('root'),
+);
+
+serviceWorker.register();
