@@ -6,15 +6,14 @@ import HabitCard from './HabitCard';
 import WeekHeader from './WeekHeader';
 
 const HabitList = ({habits}) => {
-  const sortedHabits = habits.sort((a, b) => a.createdAt - b.createdAt);
   return (
     <div>
       <AddNewHabitCard />
       <WeekHeader />
-      {sortedHabits.length > 0 ? (
-        sortedHabits.map((habit) => <HabitCard key={habit.id} habit={habit} />)
-      ) : (
+      {habits.length === 0 ? (
         <div className="f6 tc black-50">You have no habits. Create one!</div>
+      ) : (
+        habits.map((habit) => <HabitCard key={habit.id} habit={habit} />)
       )}
     </div>
   );
