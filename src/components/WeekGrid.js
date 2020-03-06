@@ -19,16 +19,16 @@ const WeekGrid = ({onGridClick, habit}) => {
   for (let i = 0; i < 7; i++) {
     const date = addDays(sunday, i);
     const formattedDate = formatDate(date, 'yyyy-MM-dd');
-    let DayCompnent;
+    let DayComponent;
     if (habit.daysComplete[formattedDate]) {
-      DayCompnent = CompleteDay;
+      DayComponent = CompleteDay;
     } else if (date < today) {
-      DayCompnent = IncompleteDay;
+      DayComponent = IncompleteDay;
     } else {
-      DayCompnent = PendingDay;
+      DayComponent = PendingDay;
     }
     gridSquares.push(
-      <DayCompnent
+      <DayComponent
         key={`${habit.id}-${i}`}
         onClick={(event) => {
           event.stopPropagation();

@@ -15,9 +15,8 @@ const habits = (state = [], action) => {
       return [...state, action.habit];
     case UPDATE_HABIT:
       return state.map((habit) => {
-        if (habit.id === action.id) {
+        if (habit.id === action.habit.id) {
           return {
-            id: action.id,
             ...action.habit,
             daysComplete: {...action.habit.daysComplete},
           };
@@ -70,7 +69,7 @@ export const createHabit = (habit) => (dispatch, getState) => {
 };
 
 export const updateHabit = (habit) => (dispatch, getState) => {
-  dispatch({type: UPDATE_HABIT, id: habit.id, habit});
+  dispatch({type: UPDATE_HABIT, habit});
   const userId = getUserId(getState());
   firestore()
     .collection('users')
@@ -99,7 +98,7 @@ export const toggleDay = (id, date) => (dispatch, getState) => {
   } else {
     habit.daysComplete[date] = true;
   }
-  dispatch(updateHabit(id, habit));
+  dispatch(updateHabit(habit));
 };
 
 export default habits;
