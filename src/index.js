@@ -7,7 +7,7 @@ import 'firebase/firestore';
 import {Provider} from 'react-redux';
 
 import './index.css';
-import AppContainer from './components/AppContainer';
+import App from './components/App';
 import {configureStore} from './store';
 
 firebase.initializeApp({
@@ -23,7 +23,7 @@ const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>
-    <AppContainer />
+    <App />
   </Provider>,
   document.getElementById('root'),
 );
