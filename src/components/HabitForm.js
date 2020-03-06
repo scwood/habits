@@ -1,10 +1,17 @@
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 
 import Button from './Button';
 import BackHeader from './BackHeader';
 import TextInput from './TextInput';
+import {
+  createHabit,
+  updateHabit,
+  getHabitById,
+  deleteHabit,
+} from '../store/habits';
 
 const propTypes = {
   match: PropTypes.object.isRequired,
@@ -13,32 +20,58 @@ const propTypes = {
   handleDelete: PropTypes.func,
 };
 
-const HabitForm = withRouter((props) => {
-  const habitId = props.match.params.id;
-  const [habit, setHabit] = useState({
+const HabitForm = withRouter(({habit, handleSubmit, handleDelete}) => {
+  const [localHabit, setLocalHabit] = useState({
     description: '',
-    ...props.habit,
   });
+
+  useEffect(() => habit && setLocalHabit(habit), [habit]);
+
   return (
-    <div>
+    <>
       <BackHeader />
       <TextInput
         label="Description"
-        value={habit.description}
-        onChange={(e) => setHabit({...habit, description: e.target.value})}
+        value={localHabit.description}
+        onChange={(e) =>
+          setLocalHabit({...localHabit, description: e.target.value})
+        }
       />
-      <Button success onClick={() => props.handleSubmit(habitId, habit)}>
+      <Button success onClick={() => handleSubmit(localHabit)}>
         Submit
       </Button>
-      {habitId && (
-        <Button danger onClick={() => props.handleDelete(habitId)}>
+      {localHabit.id && (
+        <Button danger onClick={() => handleDelete(localHabit)}>
           Delete
         </Button>
       )}
-    </div>
+    </>
   );
 });
 
 HabitForm.propTypes = propTypes;
 
-export default HabitForm;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    habit: getHabitById(state, ownProps.match.params.id),
+  };
+};
+
+const mapDispatchToProps = (dispatch, {history}) => {
+  return {
+    handleSubmit: (habit) => {
+      if (habit.id) {
+        dispatch(updateHabit(habit));
+      } else {
+        dispatch(createHabit(habit));
+      }
+      history.push('/');
+    },
+    handleDelete: (habit) => {
+      dispatch(deleteHabit(habit));
+      history.push('/');
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HabitForm);

@@ -69,8 +69,8 @@ export const createHabit = (habit) => (dispatch, getState) => {
   newHabitRef.set(newHabit);
 };
 
-export const updateHabit = (id, habit) => (dispatch, getState) => {
-  dispatch({type: UPDATE_HABIT, id, habit});
+export const updateHabit = (habit) => (dispatch, getState) => {
+  dispatch({type: UPDATE_HABIT, id: habit.id, habit});
   const userId = getUserId(getState());
   firestore()
     .collection('users')
@@ -80,14 +80,14 @@ export const updateHabit = (id, habit) => (dispatch, getState) => {
     .set(habit);
 };
 
-export const deleteHabit = (id) => (dispatch, getState) => {
-  dispatch({type: DELETE_HABIT, id});
+export const deleteHabit = (habit) => (dispatch, getState) => {
+  dispatch({type: DELETE_HABIT, id: habit.id});
   const userId = getUserId(getState());
   firestore()
     .collection('users')
     .doc(userId)
     .collection('habits')
-    .doc(id)
+    .doc(habit.id)
     .delete()
     .then(dispatch(fetchHabits()));
 };
